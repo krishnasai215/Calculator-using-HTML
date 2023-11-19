@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    #calculator {
+      background-color: #fff;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    #calculator-display {
+      background-color: #f8f9fa;
+      padding: 60px;
+      text-align: right;
+      font-size: 24px;
+      border-bottom: 1px solid #ccc;
+    }
+
+
+
+    #calculator-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .button {
+  padding: 15px;
+  font-size: 18px;
+  text-align: center;
+  border: none; /* Remove borders */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.night-mode .button {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Additional styles for day mode */
+.day-mode .button {
+  background-color: #f8f9fa; /* Adjust background color for day mode */
+  color: #333; /* Adjust text color for day mode */
+}
+
+
+
+
+    .night-mode #calculator {
+  background-color: #333;
+  color: #fff;
+}
+
+.night-mode #calculator #calculator-display {
+  background-color: #1a1a1a; /* Change the display background color as needed */
+  color: #fff;
+}
+
+.night-mode #calculator #input {
+  color: #ffffff; /* Adjust this color as needed */
+}
+
+
+  </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        let inputElement = document.getElementById('input');
+        let nightModeButton = document.querySelector('.night-mode');
+        let clearButton = document.querySelector('.clear');
+        let equalsButton = document.querySelector('.equals');
+    
+        let calculatorButtons = document.querySelectorAll('.button:not(.night-mode):not(.clear):not(.equals)');
+        calculatorButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            appendToInput(button.textContent);
+          });
+        });
+    
+        clearButton.addEventListener('click', function() {
+          clearInput();
+        });
+    
+        nightModeButton.addEventListener('click', function() {
+          toggleNightMode();
+        });
+    
+        equalsButton.addEventListener('click', function() {
+          evaluateInput();
+        });
+    
+        function appendToInput(value) {
+          if (inputElement.textContent === '0') {
+            inputElement.textContent = value;
+          } else {
+            inputElement.textContent += value;
+          }
+        }
+    
+        function clearInput() {
+          inputElement.textContent = '0';
+        }
+    
+        function toggleNightMode() {
+          document.body.classList.toggle('night-mode');
+          // Toggle the text content of the night mode button
+          nightModeButton.textContent = document.body.classList.contains('night-mode') ? 'Day' : 'Night';
+        }
+    
+        function evaluateInput() {
+          try {
+            inputElement.textContent = eval(inputElement.textContent);
+          } catch (error) {
+            inputElement.textContent = 'Error';
+          }
+        }
+      });
+    </script>
+  <title>Responsive Calculator</title>
+</head>
+<body>
+  <div id="calculator">
+    
+    <div id="calculator-display">
+      <span id="input">0</span>
+    </div>
+    <div id="calculator-body">
+      <button class="button clear">del</button>
+      <button class="button night-mode">Night</button>
+      <button class="button">%</button>
+      <button class="button operator">/</button>
+      <button class="button">7</button>
+      <button class="button">8</button>
+      <button class="button">9</button>
+      <button class="button operator">*</button>
+      <button class="button">4</button>
+      <button class="button">5</button>
+      <button class="button">6</button>
+      <button class="button operator">-</button>
+      <button class="button">1</button>
+      <button class="button">2</button>
+      <button class="button">3</button>
+      <button class="button operator">+</button>
+      <button class="button">0</button>
+      <button class="button">.</button>
+      <button class="button equals">=</button>
+      <button class="button operator">^</button>
+      <button class="button">√</button>
+      <button class="button">log</button>
+      <button class="button">(</button>
+      <button class="button">)</button>
+      <button class="button">sin</button>
+      <button class="button">cos</button>
+      <button class="button">tan</button>
+      <button class="button">deg</button>
+      <button class="button">inv</button>
+      <button class="button">π</button>
+      <button class="button">e</button>
+      <button class="button">!</button>
+    </div>
+  </div>
+</body>
+</html>
